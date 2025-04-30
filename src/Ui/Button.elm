@@ -2,6 +2,7 @@ module Ui.Button exposing
     ( Settings, new
     , withSecondaryStyle, withDangerStyle
     , withDisabledIf
+    , Internals
     , onClick
     , view
     )
@@ -15,6 +16,8 @@ module Ui.Button exposing
 @docs onClick
 
 @docs view
+@docs Internals
+@docs story
 
 -}
 
@@ -31,6 +34,7 @@ import Html.Events
 -}
 type Settings msg
     = Settings (Internals msg)
+
 
 
 {-| Create a new button, with the default primary style
@@ -71,6 +75,7 @@ withDisabledIf isDisabled (Settings internals) =
 
 
 {-| Send a `msg` when a user clicks the button
+@Storybook:Story:Control:Event
 -}
 onClick : msg -> Settings msg -> Settings msg
 onClick msg (Settings internals) =
@@ -79,9 +84,33 @@ onClick msg (Settings internals) =
 
 
 -- VIEW
+{-| @Storybook:Story
+    import Html exposing (Html)
+    import Storybook.Story exposing (Story)
+    import Ui.Button
 
 
-{-| Render a button as `Html`
+    main : Story () Msg
+    main =
+        Storybook.Story.stateless
+            { view = story
+            }
+
+
+    type Msg
+        = UserClickedSignUp
+
+
+    story : Html Msg
+    story =
+        Ui.Button.new { label = "Sign up" }
+            |> Ui.Button.onClick UserClickedSignUp
+            |> Ui.Button.view
+
+    foobar = "baz"
+
+    main
+    --> main
 -}
 view : Settings msg -> Html msg
 view (Settings internals) =
@@ -107,7 +136,8 @@ view (Settings internals) =
 
 -- INTERNALS
 
-
+{-| Internals docs here
+-}
 type alias Internals msg =
     { label : String
     , style : Style
