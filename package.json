@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm install && npm run dev",
     "dev": "start-storybook -p 6006",
-    "build": "build-storybook -o .storybook/dist"
+    "build": "build-storybook -o .storybook/dist",
+    "prebuild": "npx elm-verify-examples -o src"
   },
   "author": "Ryan Haskell-Glatz",
   "license": "ISC",
